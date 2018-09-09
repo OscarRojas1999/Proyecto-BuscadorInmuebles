@@ -239,12 +239,16 @@ GO
 CREATE PROCEDURE EliminarInmueble @Código INT, @CódigoResultado TINYINT OUTPUT AS
 BEGIN
 	BEGIN TRY
+		BEGIN TRANSACTION
+		DELETE DetalleInmuebleCaracterísticas WHERE Inmueble = @Código
 		DELETE Inmueble WHERE Código = @Código AND EstáActivo = 0
-		IF @@ROWCOUNT = 1 SET @CódigoResultado = 1
+		IF @@ROWCOUNT >= 1 SET @CódigoResultado = 1
 		ELSE SET @CódigoResultado = 2
+		COMMIT
 	END TRY
 	BEGIN CATCH
 		SET @CódigoResultado = 0
+		ROLLBACK
 	END CATCH
 END
 GO
