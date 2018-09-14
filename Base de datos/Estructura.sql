@@ -360,7 +360,7 @@ BEGIN
 END
 GO
 -- Procedimiento: Listar registros de TipoInmueble
-CREATE PROCEDURE ListarTipoInmueble AS
+CREATE PROCEDURE ListarTiposInmueble AS
 SELECT Código, Descripción, EstáActivo
 FROM TipoInmueble
 GO
@@ -384,12 +384,12 @@ CREATE PROCEDURE ListarDistritos @CódigoDepartamento CHAR(2), @CódigoProvincia C
 SELECT SUBSTRING(Código, 5, 2) [Código],
 	   Nombre
 FROM Ubigeo
-WHERE Código LIKE @CódigoDepartamento + @CódigoProvincia + '[0-9][0-9]'
+WHERE Código LIKE @CódigoDepartamento + @CódigoProvincia + '[0-9][0-9]' AND Código NOT LIKE @CódigoDepartamento + @CódigoProvincia + '00'
 GO
 -- Procedimiento: Lista las provincias de un departamento
 CREATE PROCEDURE ListarProvincias @CódigoDepartamento CHAR(2) AS
 SELECT SUBSTRING(Código, 3, 2) [Código],
 	   Nombre
 FROM Ubigeo
-WHERE Código LIKE @CódigoDepartamento + '[0-9][0-9]00'
+WHERE Código LIKE @CódigoDepartamento + '[0-9][0-9]00' AND Código NOT LIKE @CódigoDepartamento + '0000'
 GO
