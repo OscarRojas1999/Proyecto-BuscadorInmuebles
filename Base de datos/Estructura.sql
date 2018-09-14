@@ -273,7 +273,8 @@ SELECT Inmueble.CÛdigo,
 	   Distrito.Nombre [Distrito],
 	   Provincia.Nombre [Provincia],
 	   Departamento.Nombre [Departamento],
-	   Inmueble.FechaRegistro
+	   Inmueble.FechaRegistro,
+	   Inmueble.Est·Activo
 FROM Inmueble
 JOIN TipoInmueble ON Inmueble.Tipo = TipoInmueble.CÛdigo
 JOIN Ubigeo [Distrito] ON Distrito.CÛdigo = Inmueble.Ubigeo
